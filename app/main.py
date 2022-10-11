@@ -54,14 +54,31 @@ def is_brighter(p1, p2):
         return True
     return False
 
-def find_bobber_pos():
+def find_possible_bobber_pos():
     possible_positions = []
     for x in range(75, 330):
         for y in range(380, 620):
             c = get_color(x, y)
             if is_white(c) and is_blob_white(x, y):
                 possible_positions.append([x, y])
-           
+    return possible_positions
+
+def in_list(list, item):
+    for i in list:
+        if i[0] == item[0] and i[1] == item[1]:
+            return True
+    return False
+
+def find_bobber_pos():
+    list1 = find_possible_bobber_pos()
+    time.sleep(1)
+    list2 = find_possible_bobber_pos()
+
+    possible_positions = []
+    for i1 in list1:
+        if in_list(list2, i1):
+            possible_positions.append(i1)
+
     if len(possible_positions) > 0:
         best = possible_positions[0]
         for p in possible_positions:
@@ -90,6 +107,7 @@ while not query_key_state(KEY_CONTROL):
     if text_color is None:
         text_color = get_color(476, 771)
         print(f"text_color found {text_color}")
+        time.sleep(5)
     
     c = get_color(482, 779)
     is_cast = check_color(482, 779, text_color)
@@ -106,6 +124,7 @@ while not query_key_state(KEY_CONTROL):
         if bobber_pos is None:
             print(f"find bobber")
             bobber_pos = find_bobber_pos()
+            print(f"found bobber {bobber_pos}")
         else:
             print(f"check bobber")
             c = get_color(bobber_pos[0], bobber_pos[1])

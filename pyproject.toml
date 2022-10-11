@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "grow-tower-auto-clicker"
+name = "bloxburg-auto"
 version = "0.1.0"
 description = ""
 authors = ["Joe Ferner <joe@fernsroth.com>"]
